@@ -1,0 +1,438 @@
+/* =========================================================
+   Freight Cost Calculator — Frontend Styles
+
+   Design idea: a cargo waybill. Cool paper, marine ink,
+   and one loud detail: the result is a shipping label with
+   a hazard-tape edge. Everything else stays quiet.
+   ========================================================= */
+
+.fcc-calculator {
+    --fcc-ink: #0f2b46;
+    --fcc-ink-soft: #46596b;
+    --fcc-paper: #f4f7f9;
+    --fcc-surface: #ffffff;
+    --fcc-line: #c9d4dd;
+    --fcc-signal: #ffc526;
+    --fcc-danger: #b42318;
+    --fcc-danger-bg: #fdecea;
+
+    width: 100%;
+    max-width: 720px;
+    margin: 30px auto;
+    padding: 36px;
+    box-sizing: border-box;
+    direction: rtl;
+    text-align: right;
+    font-family: 'Vazirmatn', Tahoma, 'Segoe UI', sans-serif;
+    color: var(--fcc-ink);
+    background: var(--fcc-paper);
+    border: 1px solid var(--fcc-line);
+    border-radius: 10px;
+}
+
+.fcc-calculator *,
+.fcc-calculator *::before,
+.fcc-calculator *::after {
+    box-sizing: border-box;
+}
+
+
+/* ---------- Header ---------- */
+
+.fcc-calculator__header {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--fcc-ink);
+}
+
+.fcc-calculator__title {
+    margin: 0 0 8px;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.4;
+    color: var(--fcc-ink);
+}
+
+.fcc-calculator__description {
+    margin: 0;
+    max-width: 60ch;
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--fcc-ink-soft);
+}
+
+
+/* ---------- Form ---------- */
+
+.fcc-calculator__form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.fcc-field {
+    width: 100%;
+}
+
+.fcc-field__label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--fcc-ink);
+}
+
+.fcc-field__input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 14px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--fcc-ink);
+    background: var(--fcc-surface);
+    border: 1px solid var(--fcc-line);
+    border-radius: 6px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.fcc-field__input::placeholder {
+    color: #8a9aa8;
+}
+
+.fcc-field__input:hover {
+    border-color: #9db0bf;
+}
+
+.fcc-field__input:focus-visible {
+    outline: none;
+    border-color: var(--fcc-ink);
+    box-shadow: 0 0 0 3px rgba(255, 197, 38, 0.55);
+}
+
+/* Numbers stay left-to-right so digits type naturally. */
+.fcc-field__input--number,
+.fcc-dimension .fcc-field__input {
+    direction: ltr;
+    text-align: right;
+}
+
+select.fcc-field__input {
+    cursor: pointer;
+}
+
+
+/* ---------- Value + unit pairs ---------- */
+
+.fcc-input-group {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 140px;
+    gap: 0;
+    width: 100%;
+}
+
+/* The unit selector is visually attached to its number. */
+.fcc-input-group .fcc-field__input--number {
+    border-start-start-radius: 6px;
+    border-end-start-radius: 6px;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+}
+
+.fcc-input-group .fcc-field__input--unit {
+    margin-inline-start: -1px;
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+    background-color: #e9eef2;
+    font-weight: 600;
+}
+
+.fcc-input-group .fcc-field__input:focus-visible {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* ---------- Dimensions ---------- */
+
+.fcc-dimensions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.15fr);
+    gap: 12px;
+    width: 100%;
+}
+
+.fcc-dimension {
+    min-width: 0;
+}
+
+.fcc-dimension__label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fcc-ink-soft);
+}
+
+.fcc-dimension-unit {
+    margin-top: 14px;
+    width: 100%;
+}
+
+.fcc-dimension-unit .fcc-field__label {
+    font-weight: 600;
+    color: var(--fcc-ink-soft);
+}
+
+
+/* ---------- Error ---------- */
+
+.fcc-error {
+    padding: 12px 14px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--fcc-danger);
+    background: var(--fcc-danger-bg);
+    border: 1px solid #f2b8b2;
+    border-inline-start: 4px solid var(--fcc-danger);
+    border-radius: 6px;
+}
+
+.fcc-error[hidden] {
+    display: none;
+}
+
+
+/* ---------- Submit ---------- */
+
+.fcc-submit {
+    width: 100%;
+    min-height: 54px;
+    padding: 0 20px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--fcc-ink);
+    background: var(--fcc-signal);
+    border: 2px solid var(--fcc-ink);
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 var(--fcc-ink);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.fcc-submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 0 var(--fcc-ink);
+}
+
+.fcc-submit:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--fcc-ink);
+}
+
+.fcc-submit:focus-visible {
+    outline: 3px solid var(--fcc-ink);
+    outline-offset: 3px;
+}
+
+
+/* ---------- Result: the waybill ---------- */
+
+.fcc-result {
+    position: relative;
+    margin-top: 32px;
+    padding: 26px 28px 28px;
+    color: #eaf1f6;
+    background: var(--fcc-ink);
+    border-radius: 6px;
+    overflow: hidden;
+    animation: fcc-stamp 0.35s ease-out;
+}
+
+.fcc-result[hidden] {
+    display: none;
+}
+
+/* Hazard-tape edge. */
+.fcc-result::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 10px;
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--fcc-signal) 0 12px,
+        var(--fcc-ink) 12px 24px
+    );
+}
+
+.fcc-result__header {
+    margin: 10px 0 18px;
+}
+
+.fcc-result__title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #9fb4c6;
+}
+
+/* Rows read like a manifest: label ..... value unit. */
+.fcc-result__row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.fcc-result__label {
+    display: flex;
+    align-items: baseline;
+    flex: 1;
+    color: #c3d1dd;
+}
+
+.fcc-result__label::after {
+    content: '';
+    flex: 1;
+    margin: 0 10px;
+    border-bottom: 1px dashed rgba(195, 209, 221, 0.35);
+    transform: translateY(-3px);
+}
+
+.fcc-result__value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.fcc-result__row > span:last-child {
+    min-width: 5ch;
+    color: #9fb4c6;
+}
+
+.fcc-result__total {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 2px solid var(--fcc-signal);
+}
+
+.fcc-result__total-label {
+    flex: 1 1 100%;
+    font-size: 14px;
+    font-weight: 700;
+    color: #c3d1dd;
+}
+
+.fcc-result__total-value {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--fcc-signal);
+    overflow-wrap: anywhere;
+}
+
+.fcc-result__total > span:last-child {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+@keyframes fcc-stamp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 600px) {
+    .fcc-dimensions {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .fcc-dimension--unit {
+        grid-column: 1 / -1;
+    }
+
+    .fcc-calculator {
+        padding: 22px 18px;
+    }
+
+    .fcc-calculator__title {
+        font-size: 24px;
+    }
+
+    .fcc-input-group {
+        grid-template-columns: minmax(0, 1fr) 118px;
+    }
+
+    .fcc-dimensions {
+        gap: 8px;
+    }
+
+    .fcc-result {
+        padding: 24px 18px 22px;
+    }
+
+    .fcc-result__total-value {
+        font-size: 34px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fcc-result {
+        animation: none;
+    }
+
+    .fcc-submit {
+        transition: none;
+    }
+}
+
+
+/* ---------- Selects: visible dropdown arrow ---------- */
+
+.fcc-calculator select.fcc-field__input {
+    -webkit-appearance: none;
+    appearance: none;
+    padding-inline: 14px 38px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1.5 1.5 7 7l5.5-5.5' fill='none' stroke='%230f2b46' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 13px center;
+    background-size: 14px 9px;
+}
+
+/* Keep theme styles from overriding the fields. */
+.fcc-calculator .fcc-field__input {
+    border: 1px solid var(--fcc-line);
+    border-radius: 6px;
+    box-shadow: none;
+}
+
+.fcc-calculator .fcc-field__input:focus-visible {
+    border-color: var(--fcc-ink);
+    box-shadow: 0 0 0 3px rgba(255, 197, 38, 0.55);
+}
+
+.fcc-calculator .fcc-input-group .fcc-field__input--number {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+}
+
+.fcc-calculator .fcc-input-group .fcc-field__input--unit {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+}
