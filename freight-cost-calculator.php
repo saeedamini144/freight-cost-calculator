@@ -1,10 +1,11 @@
 <?php
 /**
  * Plugin Name: Freight Cost Calculator
- * Plugin URI: https://example.com/
+ * Plugin URI: https://github.com/saeedamini144/freight-cost-calculator
  * Description: محاسبه هزینه حمل بار بر اساس وزن واقعی و وزن حجمی.
  * Version: 0.1.0
  * Author: Saeed Amini
+ * Author URI: https://github.com/saeedamini144
  * Text Domain: freight-cost-calculator
  * Domain Path: /languages
  */
