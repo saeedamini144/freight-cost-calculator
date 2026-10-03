@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Shortcode and frontend assets.
  *
@@ -6,22 +7,24 @@
  */
 
 // اگر فایل مستقیماً از خارج وردپرس اجرا شود، اجرای آن متوقف می‌شود.
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 // کلاس مربوط به شورت‌کد محاسبه‌گر.
-class FCC_Shortcode {
+class FCC_Shortcode
+{
 
     /**
      * Register shortcode.
      *
      * @return void
      */
-    public static function register() {
+    public static function register()
+    {
 
         // شورت‌کد [freight_calculator] را در وردپرس ثبت می‌کنیم.
         add_shortcode(
             'freight_calculator',
-            array( __CLASS__, 'render' )
+            array(__CLASS__, 'render')
         );
     }
 
@@ -30,21 +33,14 @@ class FCC_Shortcode {
      *
      * @return void
      */
-    public static function enqueue_assets() {
-
-        // فونت وزیرمتن برای نمایش بهتر متن فارسی.
-        wp_register_style(
-            'fcc-font',
-            'https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;800&display=swap',
-            array(),
-            null
-        );
+    public static function enqueue_assets()
+    {
 
         // فایل CSS محاسبه‌گر را ثبت می‌کنیم.
         wp_register_style(
             'fcc-calculator',
             FCC_URL . 'assets/css/calculator.css',
-            array( 'fcc-font' ),
+            array(),
             FCC_VERSION
         );
 
@@ -64,32 +60,33 @@ class FCC_Shortcode {
      * @param array $atts Shortcode attributes.
      * @return string
      */
-    public static function render( $atts ) {
+    public static function render($atts)
+    {
 
         // CSS محاسبه‌گر را فقط زمانی که شورت‌کد استفاده شده enqueue می‌کنیم.
-        wp_enqueue_style( 'fcc-calculator' );
+        wp_enqueue_style('fcc-calculator');
 
         // JavaScript محاسبه‌گر را فقط زمانی که شورت‌کد استفاده شده enqueue می‌کنیم.
-        wp_enqueue_script( 'fcc-calculator' );
+        wp_enqueue_script('fcc-calculator');
 
         // نرخ حمل تنظیم‌شده در پنل مدیریت را به JavaScript می‌دهیم.
         wp_localize_script(
             'fcc-calculator',
             'fccData',
             array(
-                'shippingRate' => (float) get_option( 'fcc_shipping_rate', 2500000 ),
+                'shippingRate' => (float) get_option('fcc_shipping_rate', 2500000),
             )
         );
 
         // خروجی HTML را داخل Buffer قرار می‌دهیم.
         ob_start();
-        ?>
+?>
 
         <!-- کانتینر اصلی محاسبه‌گر -->
         <div class="fcc-calculator">
 
             <!-- عنوان محاسبه‌گر -->
-            <div class="fcc-calculator__header">
+            <!-- <div class="fcc-calculator__header">
 
                 <h2 class="fcc-calculator__title">
                     <?php
@@ -109,7 +106,7 @@ class FCC_Shortcode {
                     ?>
                 </p>
 
-            </div>
+            </div> -->
 
             <!-- فرم محاسبه‌گر -->
             <form class="fcc-calculator__form" id="fcc-calculator-form">
@@ -119,8 +116,7 @@ class FCC_Shortcode {
 
                     <label
                         class="fcc-field__label"
-                        for="fcc-origin"
-                    >
+                        for="fcc-origin">
                         <?php
                         echo esc_html__(
                             'خرید از',
@@ -133,35 +129,34 @@ class FCC_Shortcode {
                         class="fcc-field__input"
                         id="fcc-origin"
                         name="origin"
-                        required
-                    >
+                        required>
 
                         <option value="" selected disabled>
-                            <?php echo esc_html__( 'انتخاب کنید', 'freight-cost-calculator' ); ?>
+                            <?php echo esc_html__('انتخاب کنید', 'freight-cost-calculator'); ?>
                         </option>
 
                         <option value="china">
-                            <?php echo esc_html__( 'چین', 'freight-cost-calculator' ); ?>
+                            <?php echo esc_html__('چین', 'freight-cost-calculator'); ?>
                         </option>
 
                         <option value="russia">
-                            <?php echo esc_html__( 'روسیه', 'freight-cost-calculator' ); ?>
+                            <?php echo esc_html__('روسیه', 'freight-cost-calculator'); ?>
                         </option>
 
                         <option value="turkey">
-                            <?php echo esc_html__( 'ترکیه', 'freight-cost-calculator' ); ?>
+                            <?php echo esc_html__('ترکیه', 'freight-cost-calculator'); ?>
                         </option>
 
                         <option value="uae">
-                            <?php echo esc_html__( 'امارات', 'freight-cost-calculator' ); ?>
+                            <?php echo esc_html__('امارات', 'freight-cost-calculator'); ?>
                         </option>
 
                         <option value="europe">
-                            <?php echo esc_html__( 'اروپا', 'freight-cost-calculator' ); ?>
+                            <?php echo esc_html__('اروپا', 'freight-cost-calculator'); ?>
                         </option>
 
                         <option value="usa">
-                            <?php echo esc_html__( 'آمریکا', 'freight-cost-calculator' ); ?>
+                            <?php echo esc_html__('آمریکا', 'freight-cost-calculator'); ?>
                         </option>
 
                     </select>
@@ -173,8 +168,7 @@ class FCC_Shortcode {
 
                     <label
                         class="fcc-field__label"
-                        for="fcc-product-price"
-                    >
+                        for="fcc-product-price">
                         <?php
                         echo esc_html__(
                             'قیمت محصول خریداری شده',
@@ -194,34 +188,32 @@ class FCC_Shortcode {
                             name="product_price"
                             min="0"
                             step="any"
-                            placeholder="مثلاً 1000"
-                        />
+                            placeholder="مثلاً 1000" />
 
                         <!-- واحد پول -->
                         <select
                             class="fcc-field__input fcc-field__input--unit"
                             id="fcc-currency"
-                            name="currency"
-                        >
+                            name="currency">
 
                             <option value="usd">
-                                <?php echo esc_html__( 'دلار', 'freight-cost-calculator' ); ?>
+                                <?php echo esc_html__('دلار', 'freight-cost-calculator'); ?>
                             </option>
 
                             <option value="eur">
-                                <?php echo esc_html__( 'یورو', 'freight-cost-calculator' ); ?>
+                                <?php echo esc_html__('یورو', 'freight-cost-calculator'); ?>
                             </option>
 
                             <option value="aed">
-                                <?php echo esc_html__( 'درهم', 'freight-cost-calculator' ); ?>
+                                <?php echo esc_html__('درهم', 'freight-cost-calculator'); ?>
                             </option>
 
                             <option value="try">
-                                <?php echo esc_html__( 'لیر', 'freight-cost-calculator' ); ?>
+                                <?php echo esc_html__('لیر', 'freight-cost-calculator'); ?>
                             </option>
 
                             <option value="gbp">
-                                <?php echo esc_html__( 'پوند', 'freight-cost-calculator' ); ?>
+                                <?php echo esc_html__('پوند', 'freight-cost-calculator'); ?>
                             </option>
 
                         </select>
@@ -235,8 +227,7 @@ class FCC_Shortcode {
 
                     <label
                         class="fcc-field__label"
-                        for="fcc-weight"
-                    >
+                        for="fcc-weight">
                         <?php
                         echo esc_html__(
                             'وزن',
@@ -257,30 +248,28 @@ class FCC_Shortcode {
                             min="0"
                             step="any"
                             placeholder="مثلاً 25"
-                            required
-                        />
+                            required />
 
                         <!-- واحد وزن -->
                         <select
                             class="fcc-field__input fcc-field__input--unit"
                             id="fcc-weight-unit"
-                            name="weight_unit"
-                        >
+                            name="weight_unit">
 
                             <option value="kg">
-                                <?php echo esc_html__( 'کیلوگرم', 'freight-cost-calculator' ); ?>
+                                <?php echo esc_html__('کیلوگرم', 'freight-cost-calculator'); ?>
                             </option>
 
                             <option value="g">
-                                <?php echo esc_html__( 'گرم', 'freight-cost-calculator' ); ?>
+                                <?php echo esc_html__('گرم', 'freight-cost-calculator'); ?>
                             </option>
 
                             <option value="lb">
-                                <?php echo esc_html__( 'پوند', 'freight-cost-calculator' ); ?>
+                                <?php echo esc_html__('پوند', 'freight-cost-calculator'); ?>
                             </option>
 
                             <option value="oz">
-                                <?php echo esc_html__( 'اونس', 'freight-cost-calculator' ); ?>
+                                <?php echo esc_html__('اونس', 'freight-cost-calculator'); ?>
                             </option>
 
                         </select>
@@ -309,8 +298,7 @@ class FCC_Shortcode {
 
                             <label
                                 for="fcc-length"
-                                class="fcc-dimension__label"
-                            >
+                                class="fcc-dimension__label">
                                 <?php
                                 echo esc_html__(
                                     'طول',
@@ -327,8 +315,7 @@ class FCC_Shortcode {
                                 min="0"
                                 step="any"
                                 placeholder="طول"
-                                required
-                            />
+                                required />
 
                         </div>
 
@@ -337,8 +324,7 @@ class FCC_Shortcode {
 
                             <label
                                 for="fcc-width"
-                                class="fcc-dimension__label"
-                            >
+                                class="fcc-dimension__label">
                                 <?php
                                 echo esc_html__(
                                     'عرض',
@@ -355,8 +341,7 @@ class FCC_Shortcode {
                                 min="0"
                                 step="any"
                                 placeholder="عرض"
-                                required
-                            />
+                                required />
 
                         </div>
 
@@ -365,8 +350,7 @@ class FCC_Shortcode {
 
                             <label
                                 for="fcc-height"
-                                class="fcc-dimension__label"
-                            >
+                                class="fcc-dimension__label">
                                 <?php
                                 echo esc_html__(
                                     'ارتفاع',
@@ -383,51 +367,48 @@ class FCC_Shortcode {
                                 min="0"
                                 step="any"
                                 placeholder="ارتفاع"
-                                required
-                            />
+                                required />
 
                         </div>
 
                         <!-- واحد اندازه‌گیری ابعاد (ستون چهارم در همان ردیف) -->
                         <div class="fcc-dimension fcc-dimension--unit">
 
-                        <label
-                            class="fcc-dimension__label"
-                            for="fcc-dimension-unit"
-                        >
-                            <?php
-                            echo esc_html__(
-                                'واحد اندازه‌گیری',
-                                'freight-cost-calculator'
-                            );
-                            ?>
-                        </label>
-
-                        <select
-                            class="fcc-field__input"
-                            id="fcc-dimension-unit"
-                            name="dimension_unit"
-                        >
-
-                            <option value="cm">
+                            <label
+                                class="fcc-dimension__label"
+                                for="fcc-dimension-unit">
                                 <?php
                                 echo esc_html__(
-                                    'سانتی‌متر',
+                                    'واحد اندازه‌گیری',
                                     'freight-cost-calculator'
                                 );
                                 ?>
-                            </option>
+                            </label>
 
-                            <option value="in">
-                                <?php
-                                echo esc_html__(
-                                    'اینچ',
-                                    'freight-cost-calculator'
-                                );
-                                ?>
-                            </option>
+                            <select
+                                class="fcc-field__input"
+                                id="fcc-dimension-unit"
+                                name="dimension_unit">
 
-                        </select>
+                                <option value="cm">
+                                    <?php
+                                    echo esc_html__(
+                                        'سانتی‌متر',
+                                        'freight-cost-calculator'
+                                    );
+                                    ?>
+                                </option>
+
+                                <option value="in">
+                                    <?php
+                                    echo esc_html__(
+                                        'اینچ',
+                                        'freight-cost-calculator'
+                                    );
+                                    ?>
+                                </option>
+
+                            </select>
 
                         </div>
 
@@ -443,8 +424,7 @@ class FCC_Shortcode {
 
                     <button
                         type="submit"
-                        class="fcc-submit"
-                    >
+                        class="fcc-submit">
                         <?php
                         echo esc_html__(
                             'محاسبه هزینه حمل',
@@ -461,8 +441,7 @@ class FCC_Shortcode {
             <div
                 class="fcc-result"
                 id="fcc-result"
-                hidden
-            >
+                hidden>
 
                 <div class="fcc-result__header">
 
@@ -491,8 +470,7 @@ class FCC_Shortcode {
 
                     <strong
                         class="fcc-result__value"
-                        id="fcc-actual-weight"
-                    >
+                        id="fcc-actual-weight">
                         0
                     </strong>
 
@@ -514,8 +492,7 @@ class FCC_Shortcode {
 
                     <strong
                         class="fcc-result__value"
-                        id="fcc-volumetric-weight"
-                    >
+                        id="fcc-volumetric-weight">
                         0
                     </strong>
 
@@ -537,8 +514,7 @@ class FCC_Shortcode {
 
                     <strong
                         class="fcc-result__value"
-                        id="fcc-chargeable-weight"
-                    >
+                        id="fcc-chargeable-weight">
                         0
                     </strong>
 
@@ -560,8 +536,7 @@ class FCC_Shortcode {
 
                     <strong
                         class="fcc-result__total-value"
-                        id="fcc-shipping-cost"
-                    >
+                        id="fcc-shipping-cost">
                         0
                     </strong>
 
@@ -573,7 +548,7 @@ class FCC_Shortcode {
 
         </div>
 
-        <?php
+<?php
 
         // خروجی Buffer را به صورت string برمی‌گردانیم.
         return ob_get_clean();

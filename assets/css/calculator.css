@@ -7,12 +7,12 @@
    ========================================================= */
 
 .fcc-calculator {
-    --fcc-ink: #0f2b46;
+    --fcc-ink: #13234d;
     --fcc-ink-soft: #46596b;
     --fcc-paper: #f4f7f9;
     --fcc-surface: #ffffff;
     --fcc-line: #c9d4dd;
-    --fcc-signal: #ffc526;
+    --fcc-signal: #f6a31e;
     --fcc-danger: #b42318;
     --fcc-danger-bg: #fdecea;
 
@@ -23,11 +23,11 @@
     box-sizing: border-box;
     direction: rtl;
     text-align: right;
-    font-family: 'Vazirmatn', Tahoma, 'Segoe UI', sans-serif;
+    font-family: inherit;
     color: var(--fcc-ink);
     background: var(--fcc-paper);
     border: 1px solid var(--fcc-line);
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .fcc-calculator *,
@@ -92,7 +92,7 @@
     color: var(--fcc-ink);
     background: var(--fcc-surface);
     border: 1px solid var(--fcc-line);
-    border-radius: 6px;
+    border-radius: 15px;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -132,17 +132,10 @@ select.fcc-field__input {
 }
 
 /* The unit selector is visually attached to its number. */
-.fcc-input-group .fcc-field__input--number {
-    border-start-start-radius: 6px;
-    border-end-start-radius: 6px;
-    border-start-end-radius: 0;
-    border-end-end-radius: 0;
-}
+.fcc-input-group .fcc-field__input--number {}
 
 .fcc-input-group .fcc-field__input--unit {
     margin-inline-start: -1px;
-    border-start-start-radius: 0;
-    border-end-start-radius: 0;
     background-color: #e9eef2;
     font-weight: 600;
 }
@@ -195,7 +188,7 @@ select.fcc-field__input {
     background: var(--fcc-danger-bg);
     border: 1px solid #f2b8b2;
     border-inline-start: 4px solid var(--fcc-danger);
-    border-radius: 6px;
+    border-radius: 15px;
 }
 
 .fcc-error[hidden] {
@@ -212,10 +205,10 @@ select.fcc-field__input {
     font-family: inherit;
     font-size: 16px;
     font-weight: 800;
-    color: var(--fcc-ink);
-    background: var(--fcc-signal);
+    color: white;
+    background: var(--fcc-ink) !important;
     border: 2px solid var(--fcc-ink);
-    border-radius: 6px;
+    border-radius: 15px !important;
     cursor: pointer;
     box-shadow: 0 4px 0 var(--fcc-ink);
     transition: transform 0.1s ease, box-shadow 0.1s ease;
@@ -224,6 +217,7 @@ select.fcc-field__input {
 .fcc-submit:hover {
     transform: translateY(-1px);
     box-shadow: 0 5px 0 var(--fcc-ink);
+    background: var(--fcc-signal) !important;
 }
 
 .fcc-submit:active {
@@ -245,7 +239,7 @@ select.fcc-field__input {
     padding: 26px 28px 28px;
     color: #eaf1f6;
     background: var(--fcc-ink);
-    border-radius: 6px;
+    border-radius: 15px;
     overflow: hidden;
     animation: fcc-stamp 0.35s ease-out;
 }
@@ -260,11 +254,9 @@ select.fcc-field__input {
     position: absolute;
     inset: 0 0 auto 0;
     height: 10px;
-    background: repeating-linear-gradient(
-        -45deg,
-        var(--fcc-signal) 0 12px,
-        var(--fcc-ink) 12px 24px
-    );
+    background: repeating-linear-gradient(-45deg,
+            var(--fcc-signal) 0 12px,
+            var(--fcc-ink) 12px 24px);
 }
 
 .fcc-result__header {
@@ -308,7 +300,7 @@ select.fcc-field__input {
     color: #ffffff;
 }
 
-.fcc-result__row > span:last-child {
+.fcc-result__row>span:last-child {
     min-width: 5ch;
     color: #9fb4c6;
 }
@@ -338,7 +330,7 @@ select.fcc-field__input {
     overflow-wrap: anywhere;
 }
 
-.fcc-result__total > span:last-child {
+.fcc-result__total>span:last-child {
     font-size: 16px;
     font-weight: 700;
     color: #ffffff;
@@ -349,6 +341,7 @@ select.fcc-field__input {
         opacity: 0;
         transform: translateY(8px);
     }
+
     to {
         opacity: 1;
         transform: none;
@@ -418,7 +411,7 @@ select.fcc-field__input {
 /* Keep theme styles from overriding the fields. */
 .fcc-calculator .fcc-field__input {
     border: 1px solid var(--fcc-line);
-    border-radius: 6px;
+    border-radius: 15px;
     box-shadow: none;
 }
 
@@ -427,12 +420,33 @@ select.fcc-field__input {
     box-shadow: 0 0 0 3px rgba(255, 197, 38, 0.55);
 }
 
+.fcc-calculator .fcc-input-group .fcc-field__input--number {}
+
+.fcc-calculator .fcc-input-group .fcc-field__input--unit {}
+
+/* Number + unit pair: round the outer corners, flatten the joint.
+   Physical properties are used because the number input is LTR
+   while the select is RTL, so logical ones would point opposite ways. */
+
 .fcc-calculator .fcc-input-group .fcc-field__input--number {
-    border-start-end-radius: 0;
-    border-end-end-radius: 0;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .fcc-calculator .fcc-input-group .fcc-field__input--unit {
-    border-start-start-radius: 0;
-    border-end-start-radius: 0;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* Use the site's font everywhere, including form controls. */
+.fcc-calculator,
+.fcc-calculator input,
+.fcc-calculator select,
+.fcc-calculator button,
+.fcc-calculator option {
+    font-family: inherit;
 }
