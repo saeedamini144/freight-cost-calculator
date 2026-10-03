@@ -670,3 +670,40 @@ select.fcc-field__input {
         flex: 1;
     }
 }
+
+
+/* ---------------------------------------------------------
+   One-line layout: 4 fields on the first row, the submit
+   button centered on its own row below, and wider.
+   --------------------------------------------------------- */
+
+@container fcc (min-width: 1100px) {
+    .fcc-calculator .fcc-calculator__form {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1.3fr)
+            minmax(0, 1.3fr)
+            minmax(0, 2.3fr);
+    }
+
+    .fcc-calculator .fcc-calculator__form > .fcc-actions {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: center;
+        margin-top: 6px;
+    }
+
+    .fcc-calculator .fcc-calculator__form .fcc-submit {
+        width: min(100%, 460px);
+    }
+}
+
+
+/* Select text sits against the right edge (RTL start). */
+.fcc-calculator .fcc-calculator__form select.fcc-field__input {
+    direction: rtl;
+    text-align: right;
+    text-align-last: right;
+    padding-inline-start: 14px;
+    padding-inline-end: 38px;
+}
