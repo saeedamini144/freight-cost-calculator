@@ -77,7 +77,7 @@
 .fcc-field__label {
     display: block;
     margin-bottom: 8px;
-    font-size: 14px;
+    font-size: 14px !important;
     font-weight: 700;
     line-height: 1.7;
     color: var(--fcc-ink);
@@ -90,9 +90,9 @@
     font-family: inherit;
     font-size: 15px;
     color: var(--fcc-ink);
-    background: var(--fcc-surface);
+    background: var(--fcc-surface) !important;
     border: 1px solid var(--fcc-line);
-    border-radius: 15px;
+    border-radius: 15px !important;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -101,7 +101,7 @@
 }
 
 .fcc-field__input:hover {
-    border-color: #9db0bf;
+    border-color: #9db0bf !important;
 }
 
 .fcc-field__input:focus-visible {
@@ -136,7 +136,7 @@ select.fcc-field__input {
 
 .fcc-input-group .fcc-field__input--unit {
     margin-inline-start: -1px;
-    background-color: #e9eef2;
+    background-color: #e9eef2 !important;
     font-weight: 600;
 }
 
@@ -162,7 +162,7 @@ select.fcc-field__input {
 .fcc-dimension__label {
     display: block;
     margin-bottom: 6px;
-    font-size: 13px;
+    font-size: 13px !important;
     font-weight: 600;
     color: var(--fcc-ink-soft);
 }
@@ -205,7 +205,7 @@ select.fcc-field__input {
     font-family: inherit;
     font-size: 16px;
     font-weight: 800;
-    color: white;
+    color: white !important;
     background: var(--fcc-ink) !important;
     border: 2px solid var(--fcc-ink);
     border-radius: 15px !important;
@@ -215,8 +215,8 @@ select.fcc-field__input {
 }
 
 .fcc-submit:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 5px 0 var(--fcc-ink);
+    transform: translateY(-1px) !important;
+    box-shadow: 0 5px 0 var(--fcc-ink) !important;
     background: var(--fcc-signal) !important;
 }
 
@@ -410,7 +410,7 @@ select.fcc-field__input {
 
 /* Keep theme styles from overriding the fields. */
 .fcc-calculator .fcc-field__input {
-    border: 1px solid var(--fcc-line);
+    border: 1px solid var(--fcc-line) !important;
     border-radius: 15px;
     box-shadow: none;
 }
@@ -429,17 +429,17 @@ select.fcc-field__input {
    while the select is RTL, so logical ones would point opposite ways. */
 
 .fcc-calculator .fcc-input-group .fcc-field__input--number {
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    border-top-right-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
 }
 
 .fcc-calculator .fcc-input-group .fcc-field__input--unit {
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-left-radius: 15px !important;
+    border-bottom-left-radius: 15px !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
 /* Use the site's font everywhere, including form controls. */
@@ -449,4 +449,224 @@ select.fcc-field__input {
 .fcc-calculator button,
 .fcc-calculator option {
     font-family: inherit;
+}
+
+/* =========================================================
+   Theme overrides — highest specificity, keep at the end.
+   ========================================================= */
+
+/* White fields, 15px radius (number inputs, dimensions, selects). */
+.fcc-calculator .fcc-calculator__form input.fcc-field__input,
+.fcc-calculator .fcc-calculator__form select.fcc-field__input {
+    background-color: #ffffff !important;
+    background-image: none;
+    border: 1px solid var(--fcc-line) !important;
+    border-radius: 15px !important;
+    box-shadow: none !important;
+}
+
+/* Keep the dropdown arrow on selects. */
+.fcc-calculator .fcc-calculator__form select.fcc-field__input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1.5 1.5 7 7l5.5-5.5' fill='none' stroke='%230f2b46' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: left 13px center !important;
+    background-size: 14px 9px !important;
+}
+
+/* Unit select next to a number keeps its tinted background. */
+.fcc-calculator .fcc-calculator__form .fcc-input-group select.fcc-field__input--unit {
+    background-color: #e9eef2 !important;
+}
+
+/* Number + unit pair: outer corners round, joint flat. */
+.fcc-calculator .fcc-calculator__form .fcc-input-group input.fcc-field__input--number {
+    border-radius: 0 15px 15px 0 !important;
+}
+
+.fcc-calculator .fcc-calculator__form .fcc-input-group select.fcc-field__input--unit {
+    border-radius: 15px 0 0 15px !important;
+}
+
+.fcc-calculator .fcc-calculator__form input.fcc-field__input:focus-visible,
+.fcc-calculator .fcc-calculator__form select.fcc-field__input:focus-visible {
+    border-color: var(--fcc-ink) !important;
+    box-shadow: 0 0 0 3px rgba(246, 163, 30, 0.45) !important;
+}
+
+/* Submit button: no border, no outline from the theme. */
+.fcc-calculator .fcc-calculator__form button.fcc-submit {
+    border: 0 !important;
+    outline: 0;
+    border-radius: 15px !important;
+    background-color: var(--fcc-ink) !important;
+    color: #ffffff !important;
+}
+
+.fcc-calculator .fcc-calculator__form button.fcc-submit:hover {
+    background-color: var(--fcc-signal) !important;
+}
+
+.fcc-calculator .fcc-calculator__form button.fcc-submit:focus-visible {
+    outline: 3px solid var(--fcc-signal);
+    outline-offset: 3px;
+}
+
+
+
+/* =========================================================
+   Horizontal layout
+   Breakpoints follow the calculator's own width (container
+   queries), so it adapts to whatever column the theme gives it.
+
+   ≥ 1100px : every field on one line
+   ≥  700px : 3 columns, dimensions + button on the second row
+   ≥  480px : 2 columns
+   <  480px : 1 column
+   ========================================================= */
+
+.fcc-calculator {
+    max-width: none;
+    container-type: inline-size;
+    container-name: fcc;
+}
+
+.fcc-calculator .fcc-calculator__form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    align-items: end;
+}
+
+.fcc-calculator .fcc-calculator__form .fcc-actions {
+    margin: 0;
+}
+
+.fcc-calculator .fcc-calculator__form .fcc-error {
+    order: 3;
+    grid-column: 1 / -1;
+    margin: 0;
+}
+
+/* Result: label above value, stats side by side. */
+.fcc-calculator .fcc-result {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px 28px;
+}
+
+.fcc-calculator .fcc-result[hidden] {
+    display: none;
+}
+
+.fcc-calculator .fcc-result__header,
+.fcc-calculator .fcc-result__total {
+    grid-column: 1 / -1;
+}
+
+.fcc-calculator .fcc-result__row {
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 8px;
+    margin: 0;
+}
+
+.fcc-calculator .fcc-result__label {
+    flex: 1 1 100%;
+}
+
+.fcc-calculator .fcc-result__label::after {
+    display: none;
+}
+
+.fcc-calculator .fcc-result__row > span:last-child {
+    min-width: 0;
+}
+
+.fcc-calculator .fcc-result__value {
+    font-size: 20px;
+}
+
+/* 2 columns */
+@container fcc (min-width: 480px) {
+    .fcc-calculator .fcc-calculator__form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .fcc-calculator .fcc-calculator__form > .fcc-field:nth-of-type(4),
+    .fcc-calculator .fcc-calculator__form > .fcc-actions {
+        grid-column: 1 / -1;
+    }
+
+    .fcc-calculator .fcc-result {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* 3 columns: dimensions take two, button takes the third. */
+@container fcc (min-width: 700px) {
+    .fcc-calculator .fcc-calculator__form {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .fcc-calculator .fcc-calculator__form > .fcc-field:nth-of-type(4) {
+        grid-column: span 2;
+    }
+
+    .fcc-calculator .fcc-calculator__form > .fcc-actions {
+        grid-column: auto;
+    }
+}
+
+/* One line. */
+@container fcc (min-width: 1100px) {
+    .fcc-calculator .fcc-calculator__form {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1.3fr)
+            minmax(0, 1.3fr)
+            minmax(0, 2.3fr)
+            auto;
+        gap: 16px;
+    }
+
+    .fcc-calculator .fcc-calculator__form > .fcc-field:nth-of-type(4) {
+        grid-column: auto;
+    }
+
+    .fcc-calculator .fcc-calculator__form .fcc-submit {
+        width: auto;
+        min-width: 160px;
+    }
+
+    .fcc-calculator .fcc-result {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+/* Inside the one-line layout the dimension row is tight: keep the
+   unit select compact so the three numbers stay readable. */
+@container fcc (min-width: 1100px) {
+    .fcc-calculator .fcc-dimensions {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.2fr);
+        gap: 8px;
+    }
+}
+
+/* Phones: dimensions stay on one row, unit goes below. */
+@container fcc (max-width: 479px) {
+    .fcc-calculator .fcc-dimensions {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .fcc-calculator .fcc-dimension--unit {
+        grid-column: 1 / -1;
+    }
+
+    .fcc-calculator .fcc-result__row {
+        flex-wrap: nowrap;
+    }
+
+    .fcc-calculator .fcc-result__label {
+        flex: 1;
+    }
 }
